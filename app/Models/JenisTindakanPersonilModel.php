@@ -10,7 +10,7 @@ class JenisTindakanPersonilModel extends Model
 	protected $table = 'tb_jenis_tindakan_personil';
 	protected $allowedFields = [
 		'id_jenis_tindakan_personil',
-		'jenis_tindakan_personil'
+		'jenis_tindakan'
 	];
 
 	public function getJenisTindakanPersonil($id_jenis_tindakan_personil = false)

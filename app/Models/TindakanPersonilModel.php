@@ -12,7 +12,7 @@ class TindakanPersonilModel extends Model
 		'id_tindakan_personil',
 		'id_laporan',
 		'id_personil',
-		'id_jenis_tindakan',
+		'id_jenis_tindakan_personil',
 		'waktu',
 		'status'
 	];

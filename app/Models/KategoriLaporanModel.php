@@ -10,7 +10,7 @@ class KategoriLaporanModel extends Model
 	protected $table = 'tb_kategori_laporan';
 	protected $allowedFields = [
 		'id_kategori_laporan',
-		'kategori',
+		'kategori_laporan',
 		'deskripsi',
 		'create_datetime',
 		'update_datetime'

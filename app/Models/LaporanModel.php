@@ -13,7 +13,7 @@ class LaporanModel extends Model
 		'waktu',
 		'id_pelapor',
 		'id_kategori_laporan',
-		'id_jenis_kecelakaan',
+		'id_kategori_kecelakaan',
 		'latitude',
 		'longitude',
 		'deskripsi',
@@ -43,10 +43,10 @@ class LaporanModel extends Model
 		])->orderBy('id_laporan', 'desc')->findAll();
 	}
 
-	public function getLaporanByIdJenisKecelakaan($id_jenis_kecelakaan)
+	public function getLaporanByIdKategoriKecelakaan($id_kategori_kecelakaan)
 	{
 		return $this->where([
-			'id_jenis_kecelakaan' => $id_jenis_kecelakaan
+			'id_kategori_kecelakaan' => $id_kategori_kecelakaan
 		])->orderBy('id_laporan', 'desc')->findAll();
 	}
 

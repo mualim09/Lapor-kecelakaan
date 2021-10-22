@@ -13,8 +13,8 @@ class SatkerPersonilModel extends Model
 		'nama_satker',
 		'alamat',
 		'status',
-		'update_datetime',
-		'create_datetime'
+		'create_datetime',
+		'update_datetime'
 	];
 
 	public function getSatkerPersonil($id_satker_personil = false)
