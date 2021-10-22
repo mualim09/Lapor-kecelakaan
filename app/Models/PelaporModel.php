@@ -22,8 +22,7 @@ class PelaporModel extends Model
 		'foto',
 		'latitude',
 		'longitude',
-		'status_akun',
-		'aktif',
+		'status',
 		'last_login',
 		'create_datetime',
 		'update_datetime'

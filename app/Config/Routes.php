@@ -32,6 +32,17 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/choose-user', 'Home::choose_user');
+
+// Pelapor
+$routes->get('/pelapor/login', 'Pelapor\Login::index', ['filter' => 'auth_not_login_pelapor']);
+$routes->get('/pelapor', 'Pelapor\Dashboard::index', ['filter' => 'auth_pelapor']);
+
+// Personil
+$routes->get('/personil/login', 'Personil\Login::index', ['filter' => 'auth_not_login_personil']);
+$routes->get('/personil/lupa-password', 'Personil\Login::lupa_password', ['filter' => 'auth_not_login_personil']);
+$routes->get('/personil/reset-password/(:any)', 'Personil\Login::reset_password/$1', ['filter' => 'auth_not_login_personil']);
+$routes->get('/personil', 'Personil\Dashboard::index', ['filter' => 'auth_personil']);
 
 /*
  * --------------------------------------------------------------------

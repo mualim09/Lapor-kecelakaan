@@ -25,7 +25,8 @@ class PersonilModel extends Model
 		'aktif',
 		'last_login',
 		'create_datetime',
-		'update_datetime'
+		'update_datetime',
+		'token_reset_password'
 	];
 
 	public function getPersonil($id_personil = false)

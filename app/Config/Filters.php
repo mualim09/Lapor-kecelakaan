@@ -16,9 +16,13 @@ class Filters extends BaseConfig
      * @var array
      */
     public $aliases = [
-        'csrf'     => CSRF::class,
-        'toolbar'  => DebugToolbar::class,
-        'honeypot' => Honeypot::class,
+        'csrf' => \CodeIgniter\Filters\CSRF::class,
+        'toolbar' => \CodeIgniter\Filters\DebugToolbar::class,
+        'honeypot' => \CodeIgniter\Filters\Honeypot::class,
+        'auth_pelapor' => \App\Filters\AuthPelapor::class,
+        'auth_not_login_pelapor' => \App\Filters\AuthNotLoginPelapor::class,
+        'auth_personil' => \App\Filters\AuthPersonil::class,
+        'auth_not_login_personil' => \App\Filters\AuthNotLoginPersonil::class,
     ];
 
     /**
@@ -32,7 +36,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
         ],
-        'after' => [
+        'after'  => [
             'toolbar',
             // 'honeypot',
         ],
