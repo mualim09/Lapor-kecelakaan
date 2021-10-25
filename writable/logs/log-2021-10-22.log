@@ -1,0 +1,4 @@
+CRITICAL - 2021-10-22 12:27:25 --> Call to undefined function CodeIgniter\locale_set_default()
+#0 C:\xampp\htdocs\skripsi\vendor\codeigniter4\framework\system\bootstrap.php(146): CodeIgniter\CodeIgniter->initialize()
+#1 C:\xampp\htdocs\skripsi\spark(45): require('C:\\xampp\\htdocs...')
+#2 {main}
