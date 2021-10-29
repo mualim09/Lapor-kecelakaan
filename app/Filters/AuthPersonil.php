@@ -11,7 +11,7 @@ class AuthPersonil implements FilterInterface
 	public function before(RequestInterface $request, $arguments = null)
 	{
 		if (!session()->get('logged_in_personil')) {
-			return redirect()->to(base_url() . '/personil/login');
+			return redirect()->to(base_url() . '/personil/sign-in');
 		}
 	}
 

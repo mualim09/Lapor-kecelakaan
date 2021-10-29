@@ -11,12 +11,11 @@ class AuthPelapor implements FilterInterface
 	public function before(RequestInterface $request, $arguments = null)
 	{
 		if (!session()->get('logged_in_pelapor')) {
-			return redirect()->to(base_url() . '/pelapor/login');
+			return redirect()->to(base_url() . '/pelapor/sign-in');
 		}
 	}
 
 	//--------------------------------------------------------------------
-
 	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
 	{
 		// Do something here
