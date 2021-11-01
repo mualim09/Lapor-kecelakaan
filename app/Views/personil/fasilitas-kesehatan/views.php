@@ -87,10 +87,8 @@
 						</h3>
 					</div>
 					<div class="card-body border-bottom py-3">
-
 						<div class="row" id="outputNearbyLocation">
 						</div>
-
 					</div>
 
 				</div>
@@ -114,13 +112,13 @@
 					accuracyStatus = `
 							<strong style="color: green;">
 								<span class="fa fa-checked"></span>
-								Akurasi : ` + position.coords.accuracy.toFixed(2) + ` m (Bagus)
+								` + position.coords.accuracy.toFixed(2) + ` m (Baik)
 							</strong>`;
 				} else {
 					accuracyStatus = `
 							<strong style="color: red;">
 								<span class="glyphicon glyphicon-warning-sign"></span>
-								Akurasi : ` + position.coords.accuracy.toFixed(2) + ` m (Lemah)
+								` + position.coords.accuracy.toFixed(2) + ` m (Lemah)
 							</strong>`;
 				}
 
@@ -138,6 +136,18 @@
 						outputKoordinat.innerHTML = `(` + pos.lat + `, ` + pos.lng + `)`;
 						outputAkurasi.innerHTML = accuracyStatus;
 
+						$.ajax({
+							type: "POST",
+							url: "<?= base_url() ?>/Personil/Dashboard/update_posisi",
+							dataType: "JSON",
+							data: {
+								latitude: pos.lat,
+								longitude: pos.lng
+							},
+							success: function(data) {
+								console.log('OK');
+							}
+						});
 
 						$.ajax({
 							type: "POST",
@@ -153,30 +163,21 @@
 								var arrayDataFaskesLength = arrayDataFaskes.length;
 								outputNearbyLocation.innerHTML = ``;
 								arrayDataFaskes.forEach(function(item, index) {
-									$.ajax({
-										type: "get",
-										url: 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + pos.lat + '%2C' + pos.lng + '&destinations=' + item["lat"] + '%2C' + item["lng"] + '&key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E',
-										headers: {},
-										success: function(response) {
-											console.log(JSON.stringify(response.data));
-										}
-
-									});
-
 									outputNearbyLocation.innerHTML += `
 									<div class="col-lg-4 mb-3">
 										<div class="card">
 											<div class="card-body p-0">
 												<div class="row">
 													<div class="col-4">
-														<img src="` + item['photo'] + `" style="width: 100%; height: 100px; object-fit: cover;" />
+														<img src="` + item['photo'] + `" style="width: 100%; height: 125px; object-fit: cover;" />
 													</div>
 													<div class="col-8 py-2 pr-2">
 														<h4 class="text-truncate">
 															` + item['name'] + ` <br>
-															<small style="font-weight: 100;">` + item['address'] + `</small>
+															<small style="font-weight: 100;">` + item['address'] + `</small> <br>
 														</h4>
-														<p>Jarak : ` + item['distance'] + ` meter</p>
+														<small class="text-success">` + item['distance'] + ` dari lokasi anda</small><br>
+														<small class="text-success">` + item['duration'] + ` s/d ` + item['duration_in_traffic'] + `</small>
 													</div>
 												</div>
 											</div>

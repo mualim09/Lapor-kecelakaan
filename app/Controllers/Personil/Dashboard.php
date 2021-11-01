@@ -84,4 +84,15 @@ class Dashboard extends BaseController
 		];
 		return view('personil/dashboard/views', $data);
 	}
+
+	public function update_posisi()
+	{
+		$latitude = $this->request->getPost('latitude');
+		$longitude = $this->request->getPost('longitude');
+
+		$this->PersonilModel->updatePersonil([
+			'latitude' => $latitude,
+			'longitude' => $longitude
+		], $this->id_user);
+	}
 }

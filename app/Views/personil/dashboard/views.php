@@ -232,14 +232,14 @@
 				if (position.coords.accuracy < 100) {
 					accuracyStatus = `
 							<strong style="color: green;">
-								<span class="glyphicon glyphicon-ok"></span>
-								Akurasi : ` + position.coords.accuracy.toFixed(2) + ` m (Bagus)
+								<span class="fa fa-check"></span>
+								` + position.coords.accuracy.toFixed(2) + ` m (Baik)
 							</strong>`;
 				} else {
 					accuracyStatus = `
 							<strong style="color: red;">
 								<span class="glyphicon glyphicon-warning-sign"></span>
-								Akurasi : ` + position.coords.accuracy.toFixed(2) + ` m (Lemah)
+								` + position.coords.accuracy.toFixed(2) + ` m (Lemah)
 							</strong>`;
 				}
 
@@ -273,7 +273,7 @@
 								<strong>Posisi anda saat ini</strong>
 								<br>` +
 							results[3].formatted_address +
-							`<br>(` + pos.lat.toFixed(5) + `, ` + pos.lng.toFixed(5) + `)<br>` + accuracyStatus + `
+							`<br>(` + pos.lat.toFixed(5) + `, ` + pos.lng.toFixed(5) + `)<br> Akurasi : ` + accuracyStatus + `
 								</strong>
 							</div>`;
 						infowindow.setContent(infowindowText);
@@ -284,7 +284,21 @@
 						outputAlamat.innerHTML = results[0].formatted_address;
 						outputKoordinat.innerHTML = `(` + pos.lat + `, ` + pos.lng + `)`;
 						outputAkurasi.innerHTML = accuracyStatus;
+
+						$.ajax({
+							type: "POST",
+							url: "<?= base_url() ?>/Personil/Dashboard/update_posisi",
+							dataType: "JSON",
+							data: {
+								latitude: pos.lat,
+								longitude: pos.lng
+							},
+							success: function(data) {
+								console.log('OK');
+							}
+						});
 					}
+
 				});
 			}, function() {
 				handleLocationError(true, infoWindow, map.getCenter());

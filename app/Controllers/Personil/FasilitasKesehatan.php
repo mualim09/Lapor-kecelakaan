@@ -86,6 +86,29 @@ class FasilitasKesehatan extends BaseController
 		// return $json->rows[0]->elements[0]->distance->value;
 	}
 
+	public function distance_matrix_google($value_search, $lat1, $lng1, $lat2, $lng2)
+	{
+		$fetch = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations=$lat2%2C$lng2&origins=$lat1%2C$lng1&key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E");
+		$json = json_decode($fetch);
+		$destination_addresses = $json->destination_addresses;
+		$origin_addresses = $json->origin_addresses;
+		$distance = $json->rows[0]->elements[0]->distance->text;
+		$duration = $json->rows[0]->elements[0]->duration->text;
+		$duration_in_traffic = $json->rows[0]->elements[0]->duration_in_traffic->text;
+
+		if ($value_search == "distance") {
+			return $distance;
+		} else if ($value_search == "destination_addresses") {
+			return  $destination_addresses;
+		} else if ($value_search == "origin_addresses") {
+			return  $origin_addresses;
+		} else if ($value_search == "duration") {
+			return  $duration;
+		} else if ($value_search == "duration_in_traffic") {
+			return  $duration_in_traffic;
+		}
+	}
+
 	public function index()
 	{
 		$data = [
@@ -119,10 +142,15 @@ class FasilitasKesehatan extends BaseController
 		$koordinat = $this->request->getPost('koordinat');
 		$radius = $this->request->getPost('radius');
 
+		// $koordinat = "-0.066136799752712,109.34854125977";
+		// $fetch = file_get_contents("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-0.066136799752712,109.34854125977&radius=20000&type=hospital&sensor=true&key=AIzaSyBJkHXEVXBSLY7ExRcxoDxXzRYLJHg7qfI");
+
 		$fetch = file_get_contents("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$koordinat&radius=$radius&type=$poi&sensor=true&key=AIzaSyBJkHXEVXBSLY7ExRcxoDxXzRYLJHg7qfI");
 		$json = json_decode($fetch);
 		$limit = (count($json->results) <= 100) ? count($json->results) : 100;
 		for ($i = 0; $i < $limit; $i++) {
+
+
 			$data[$index]['name'] = $json->results[$i]->name;
 			$data[$index]['lat'] = $json->results[$i]->geometry->location->lat;
 			$data[$index]['lng'] = $json->results[$i]->geometry->location->lng;
@@ -132,8 +160,17 @@ class FasilitasKesehatan extends BaseController
 			$data[$index]['address'] = $json->results[$i]->vicinity;
 			$data[$index]['photo'] = (isset($json->results[$i]->photos)) ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" . $json->results[$i]->photos[0]->photo_reference . "&key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E" : base_url() . "/img/bgnoimg.jpg";
 			$data[$index]['icon'] = $json->results[$i]->icon;
+
 			$coordinate = explode(",", $koordinat);
-			$data[$index]['distance'] = $this->calculateDistance($coordinate[0], $coordinate[1], $data[$index]['lat'], $data[$index]['lng']);
+			$distance = $this->distance_matrix_google('distance', $coordinate[0], $coordinate[1], $data[$index]['lat'], $data[$index]['lng']);
+			$data[$index]['distance'] = $distance;
+
+			$duration = $this->distance_matrix_google('duration', $coordinate[0], $coordinate[1], $data[$index]['lat'], $data[$index]['lng']);
+			$data[$index]['duration'] = $duration;
+
+			$duration_in_traffic = $this->distance_matrix_google('duration_in_traffic', $coordinate[0], $coordinate[1], $data[$index]['lat'], $data[$index]['lng']);
+			$data[$index]['duration_in_traffic'] = $duration_in_traffic;
+
 			$index++;
 		}
 		echo json_encode($data);
