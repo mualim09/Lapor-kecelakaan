@@ -44,12 +44,22 @@ $routes->get('/pelapor', 'Pelapor\Dashboard::index', ['filter' => 'auth_pelapor'
 
 // Personil
 $routes->get('/personil/sign-in', 'Personil\Login::index', ['filter' => 'auth_not_login_personil']);
+$routes->post('/personil/auth-login-personil', 'Personil\Login::auth', ['filter' => 'auth_not_login_personil']);
 $routes->get('/personil/sign-up', 'Personil\Login::sign_up', ['filter' => 'auth_not_login_personil']);
 $routes->post('/personil/create-account', 'Personil\Login::sign_up_account', ['filter' => 'auth_not_login_personil']);
-$routes->post('/personil/auth-login-personil', 'Personil\Login::auth', ['filter' => 'auth_not_login_personil']);
 $routes->get('/personil/lupa-password', 'Personil\Login::lupa_password', ['filter' => 'auth_not_login_personil']);
 $routes->get('/personil/reset-password/(:any)', 'Personil\Login::reset_password/$1', ['filter' => 'auth_not_login_personil']);
+
 $routes->get('/personil', 'Personil\Dashboard::index', ['filter' => 'auth_personil']);
+
+$routes->get('/personil/laporan', 'Personil\Laporan::index', ['filter' => 'auth_personil']);
+
+$routes->get('/personil/history', 'Personil\Laporan::history', ['filter' => 'auth_personil']);
+
+$routes->get('/personil/fasilitas-kesehatan', 'Personil\FasilitasKesehatan::index', ['filter' => 'auth_personil']);
+$routes->get('/personil/fasilitas-kesehatan/peta', 'Personil\FasilitasKesehatan::peta', ['filter' => 'auth_personil']);
+
+$routes->get('/personil/daerah-rawan', 'Personil\DaerahRawan::index', ['filter' => 'auth_personil']);
 
 $routes->get('/personil/logout', 'Logout::personil', ['filter' => 'auth_personil']);
 

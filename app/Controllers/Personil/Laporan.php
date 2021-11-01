@@ -12,7 +12,7 @@ use \App\Models\KategoriLaporanModel;
 use \App\Models\KategoriKorbanModel;
 use \App\Models\KategoriKecelakaanModel;
 
-class Dashboard extends BaseController
+class Laporan extends BaseController
 {
 	public function __construct()
 	{
@@ -66,7 +66,7 @@ class Dashboard extends BaseController
 		$data = [
 			'request' => $this->request,
 			'db' => $this->db,
-			'title' => 'Dashboard Personil',
+			'title' => 'Laporan Masuk',
 			'user_id' => $this->id_user,
 			'user_nama_lengkap' => $this->user_nama_lengkap,
 			'user_nrp' => $this->user_nrp,
@@ -82,6 +82,6 @@ class Dashboard extends BaseController
 			'user_status_aktif' => $this->user_status_aktif,
 			'laporan' => $this->LaporanModel->getLaporanByIdPelapor($this->id_user)
 		];
-		return view('personil/dashboard/views', $data);
+		return view('personil/laporan/views', $data);
 	}
 }

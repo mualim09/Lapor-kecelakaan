@@ -1,0 +1,15 @@
+*,
+html,
+body {
+	font-family: 'Poppins', sans-serif;
+}
+
+.content-min-height{
+	min-height: 73.5vh;
+}
+
+@media (max-width: 768px){
+	.content-min-height {
+		min-height: 78.5vh;
+	}
+}

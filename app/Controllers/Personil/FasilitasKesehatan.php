@@ -12,7 +12,7 @@ use \App\Models\KategoriLaporanModel;
 use \App\Models\KategoriKorbanModel;
 use \App\Models\KategoriKecelakaanModel;
 
-class Dashboard extends BaseController
+class FasilitasKesehatan extends BaseController
 {
 	public function __construct()
 	{
@@ -61,12 +61,37 @@ class Dashboard extends BaseController
 		$this->user_status_aktif = $data_user['aktif'];
 	}
 
+	public function calculateDistance($lat1, $lon1, $lat2, $lon2)
+	{
+		$unit = "K";
+		$theta = $lon1 - $lon2;
+		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+		$dist = acos($dist);
+		$dist = rad2deg($dist);
+		$miles = $dist * 60 * 1.1515;
+		$unit = strtoupper($unit);
+
+		if ($unit == "K") {
+			$response = ($miles * 1.609344);
+		} else if ($unit == "N") {
+			$response = ($miles * 0.8684);
+		} else {
+			$response = $miles;
+		}
+		return round($response * 1000);
+
+		// return round($response * 1000);
+		// $fetch = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$latitudeFrom,$longitudeFrom&destinations=$latitudeTo,$longitudeTo&key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E");
+		// $json = json_decode($fetch);
+		// return $json->rows[0]->elements[0]->distance->value;
+	}
+
 	public function index()
 	{
 		$data = [
 			'request' => $this->request,
 			'db' => $this->db,
-			'title' => 'Dashboard Personil',
+			'title' => 'Fasilitas Kesehatan',
 			'user_id' => $this->id_user,
 			'user_nama_lengkap' => $this->user_nama_lengkap,
 			'user_nrp' => $this->user_nrp,
@@ -82,6 +107,35 @@ class Dashboard extends BaseController
 			'user_status_aktif' => $this->user_status_aktif,
 			'laporan' => $this->LaporanModel->getLaporanByIdPelapor($this->id_user)
 		];
-		return view('personil/dashboard/views', $data);
+		return view('personil/fasilitas-kesehatan/views', $data);
+	}
+
+	public function getNearbyLocationFaskes()
+	{
+		$index = 0;
+		$data = [];
+
+		$poi = $this->request->getPost('poi');
+		$koordinat = $this->request->getPost('koordinat');
+		$radius = $this->request->getPost('radius');
+
+		$fetch = file_get_contents("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$koordinat&radius=$radius&type=$poi&sensor=true&key=AIzaSyBJkHXEVXBSLY7ExRcxoDxXzRYLJHg7qfI");
+		$json = json_decode($fetch);
+		$limit = (count($json->results) <= 100) ? count($json->results) : 100;
+		for ($i = 0; $i < $limit; $i++) {
+			$data[$index]['name'] = $json->results[$i]->name;
+			$data[$index]['lat'] = $json->results[$i]->geometry->location->lat;
+			$data[$index]['lng'] = $json->results[$i]->geometry->location->lng;
+
+			$data[$index]['rating'] = (isset($json->results[$i]->rating)) ? $json->results[$i]->rating : 0;
+			$data[$index]['rating_total'] = (isset($json->results[$i]->user_ratings_total)) ? $json->results[$i]->user_ratings_total : 0;
+			$data[$index]['address'] = $json->results[$i]->vicinity;
+			$data[$index]['photo'] = (isset($json->results[$i]->photos)) ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" . $json->results[$i]->photos[0]->photo_reference . "&key=AIzaSyCG7FscIk67I9yY_fiyLc7-_1Aoyerf96E" : base_url() . "/img/bgnoimg.jpg";
+			$data[$index]['icon'] = $json->results[$i]->icon;
+			$coordinate = explode(",", $koordinat);
+			$data[$index]['distance'] = $this->calculateDistance($coordinate[0], $coordinate[1], $data[$index]['lat'], $data[$index]['lng']);
+			$index++;
+		}
+		echo json_encode($data);
 	}
 }
