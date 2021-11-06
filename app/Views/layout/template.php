@@ -391,7 +391,7 @@ header('Access-Control-Allow-Origin: *');
 	<!-- Tabler Core -->
 	<script src="<?= base_url(); ?>/main-temp/dist/js/tabler.min.js"></script>
 
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJkHXEVXBSLY7ExRcxoDxXzRYLJHg7qfI&callback=initMap"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-JpweDJ7_cA9-KiEq-iMjQzlluOemnWo&callback=initMap"></script>
 
 	<script src="<?= base_url(); ?>/assets-custom/js/main.js"></script>
 

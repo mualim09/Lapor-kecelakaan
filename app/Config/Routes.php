@@ -16,6 +16,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * Router Setup
  * --------------------------------------------------------------------
  */
+
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
@@ -37,9 +38,13 @@ $routes->get('/choose-user', 'Home::choose_user');
 
 // Pelapor
 $routes->get('/pelapor/sign-in', 'Pelapor\Login::index', ['filter' => 'auth_not_login_pelapor']);
+$routes->get('/pelapor/auth-login-pelapor', 'Pelapor\Login::auth', ['filter' => 'auth_not_login_pelapor']);
 $routes->get('/pelapor', 'Pelapor\Dashboard::index', ['filter' => 'auth_pelapor']);
 
+
+$routes->get('/pelapor/logout', 'Logout::pelapor', ['filter' => 'auth_pelapor']);
 // End Pelapor
+
 
 
 // Personil

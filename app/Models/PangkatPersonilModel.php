@@ -10,7 +10,8 @@ class PangkatPersonilModel extends Model
 	protected $table = 'tb_pangkat_personil';
 	protected $allowedFields = [
 		'id_pangkat_personil',
-		'pangkat'
+		'pangkat',
+		'singkatan'
 	];
 
 	public function getPangkatPersonil($id_pangkat_personil = false)

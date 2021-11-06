@@ -28,7 +28,7 @@
 				<div class="card">
 					<div class="card-header">
 						<h3 class="card-title">
-							Daerah Rawan Kecelakaan
+							Peta Persebaran Daerah Rawan Kecelakaan Lalu Lintas
 						</h3>
 					</div>
 					<div class="card-body border-bottom py-3">

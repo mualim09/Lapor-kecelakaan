@@ -26,6 +26,7 @@ class Pengaturan extends BaseController
 		$this->KategoriKecelakaanModel = new KategoriKecelakaanModel();
 		$this->request = \Config\Services::request();
 		$this->db = \Config\Database::connect();
+		$this->validation = \Config\Services::validation();
 
 		$this->session = session();
 		$this->id_user = $this->session->get('id_user');
@@ -50,8 +51,8 @@ class Pengaturan extends BaseController
 		$this->user_nama_lengkap = $data_user['nama_lengkap'];
 		$this->user_nrp = $data_user['nrp'];
 		$this->user_username = $data_user['nrp'];
-		$this->user_satker = $satker;
-		$this->user_pangkat = $pangkat;
+		$this->user_satker = $data_user['id_satker'];
+		$this->user_pangkat = $data_user['id_pangkat'];
 		$this->user_jabatan = $data_user['jabatan'];
 		$this->user_no_hp = $data_user['no_hp'];
 		$this->user_email = $data_user['email'];
@@ -66,6 +67,7 @@ class Pengaturan extends BaseController
 		$data = [
 			'request' => $this->request,
 			'db' => $this->db,
+			'validation' => $this->validation,
 			'title' => 'Pengaturan',
 			'user_id' => $this->id_user,
 			'user_nama_lengkap' => $this->user_nama_lengkap,
@@ -79,7 +81,9 @@ class Pengaturan extends BaseController
 			'user_level' => $this->user_level,
 			'user_foto' => $this->user_foto,
 			'user_status_akun' => $this->user_status_akun,
-			'user_status_aktif' => $this->user_status_aktif
+			'user_status_aktif' => $this->user_status_aktif,
+			'satuan_kerja' => $this->SatkerPersonilModel->getSatkerPersonil(),
+			'pangkat_personil' => $this->PangkatPersonilModel->getPangkatPersonil()
 		];
 		return view('personil/pengaturan/views', $data);
 	}
