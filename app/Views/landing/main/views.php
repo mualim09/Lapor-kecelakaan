@@ -2,7 +2,7 @@
 
 <?= $this->section('content-landing'); ?>
 
-<section style="background-color: #fff;">
+<section style="background-color: #0080ff;">
 
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center" style="height: 100vh;">
@@ -14,10 +14,11 @@
 					Aplikasi Pelaporan Kecelakaan Lalu Lintas
 				</h3>
 				<img src="<?= base_url(); ?>/img/laka-2.jpg" style="width: 80%;" class="mb-2">
-				<h5 style="font-weight: 500;">
-					Mari bergabung dan laporkan saat anda menemukan kecelakaan lalu lintas disekitar anda.
-				</h5>
-				<a href="<?= base_url(); ?>/choose-user" class="mt-4 btn btn-lg btn-warning" style="width: 200px;">
+				<p style="font-weight: 500; color: #fff;">
+					Mari bergabung dan laporkan ! <br>
+					Saat anda menemukan kecelakaan lalu lintas disekitar anda.
+				</p>
+				<a href="<?= base_url(); ?>/choose-user" class="mt-4 btn btn-warning" style="width: 200px;">
 					<i class="fa fa-arrow-right"></i> Mulai
 				</a>
 			</div>

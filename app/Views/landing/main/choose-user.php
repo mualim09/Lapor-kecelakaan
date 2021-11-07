@@ -2,7 +2,7 @@
 
 <?= $this->section('content-landing'); ?>
 
-<section style="background-color: #fff;">
+<section style="background-color: #0080ff;">
 
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center" style="height: 100vh;">
@@ -15,7 +15,7 @@
 					Masuk sebagai ?
 				</h5>
 				<div class="d-flex mt-3">
-					<a href="<?= base_url(); ?>/pelapor" class="btn btn-outline-success" style="width: 190px; margin-right: 10px;">
+					<a href="<?= base_url(); ?>/pelapor" class="btn btn-outline-success shadow" style="width: 190px; margin-right: 10px;">
 						<i class="fa fa-users"></i> Pelapor
 					</a>
 					<a href="<?= base_url(); ?>/personil" class="btn btn-outline-info" style="width: 190px;">

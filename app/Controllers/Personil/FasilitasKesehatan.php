@@ -150,7 +150,6 @@ class FasilitasKesehatan extends BaseController
 		$limit = (count($json->results) <= 100) ? count($json->results) : 100;
 		for ($i = 0; $i < $limit; $i++) {
 
-
 			$data[$index]['name'] = $json->results[$i]->name;
 			$data[$index]['lat'] = $json->results[$i]->geometry->location->lat;
 			$data[$index]['lng'] = $json->results[$i]->geometry->location->lng;
