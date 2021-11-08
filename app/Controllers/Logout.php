@@ -9,8 +9,10 @@ class Logout extends Controller
 	public function pelapor()
 	{
 		$session = session();
+		$token = $session->get('access_token');
+		return redirect()->to("https://accounts.google.com/o/oauth2/revoke?token=$token");
+
 		$session->destroy();
-		return redirect()->to(base_url() . '/pelapor/login');
 	}
 
 	public function personil()

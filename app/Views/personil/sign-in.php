@@ -2,18 +2,34 @@
 
 <?= $this->section('content-landing'); ?>
 
-<section class="sign-in">
+<section class="sign-in d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 	<div class="container">
 		<div class="signin-content">
-			<div class="signin-image text-center">
-				<figure><img src="<?= base_url(); ?>/landing-temp/images/signin-image.jpg" alt="sing up image"></figure>
+			<div class="text-center d-flex align-items-end">
+				<div>
+					<img src="<?= base_url(); ?>/img/laka-1.png" alt="sing up image">
+					<div class="text-center mt-3">
+						<div class="d-flex justify-content-center">
+							<span>
+								Belum punya akun ? silahkan
+							</span>
+							<a href="<?= base_url(); ?>/personil/sign-up" class="signup-image-link ml-2">
+								<i class="fa fa-arrow-circle-right"></i> Buat Akun
+							</a>
+						</div>
+						<br>
+						<a href="<?= base_url(); ?>/choose-user" class="signup-image-link">
+							<i class="fa fa-arrow-left"></i> Kembali
+						</a>
+					</div>
+				</div>
 			</div>
 
 			<div class="signin-form mt-5 mt-lg-0">
-				<h4 class="form-title">
+				<h5 class="form-title">
 					Masuk sebagai Personil
-				</h4>
-				<form class="register-form mt-3" id="formLogin">
+				</h5>
+				<form class="regix`ster-form mt-3" id="formLogin">
 					<div class="form-group">
 						<label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
 						<input type="text" name="username" id="username" placeholder="NRP / Email" autofocus autocomplete="off" />
@@ -36,19 +52,7 @@
 				</form>
 				<br>
 				<br>
-				<br>
-				<div class="text-center">
-					<span>
-						Belum punya akun ? silahkan
-					</span>
-					<a href="<?= base_url(); ?>/personil/sign-up" class="signup-image-link">
-						<i class="fa fa-arrow-circle-right"></i> Buat Akun
-					</a>
-					<br>
-					<a href="<?= base_url(); ?>/choose-user" class="signup-image-link">
-						<i class="fa fa-arrow-left"></i> Kembali
-					</a>
-				</div>
+
 			</div>
 		</div>
 	</div>

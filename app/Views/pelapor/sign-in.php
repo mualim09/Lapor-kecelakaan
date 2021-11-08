@@ -2,62 +2,92 @@
 
 <?= $this->section('content-landing'); ?>
 
-<section class="sign-in">
+<section class="sign-in d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 	<div class="container">
 		<div class="signin-content">
-			<div class="signin-image text-center">
-				<figure>
-					<img src="<?= base_url(); ?>/landing-temp/images/signin-image.jpg" alt="sing up image">
-				</figure>
-				<span class="">
-					Belum punya akun ?
-				</span>
-				<a href="<?= base_url(); ?>/pelapor/sign-up" class="signup-image-link">
-					Buat Akun
-				</a>
-				<br>
-				<a href="<?= base_url(); ?>/choose-user" class="signup-image-link">
-					<i class="fa fa-arrow-left"></i> Kembali
-				</a>
+			<div class="text-center d-flex align-items-end">
+				<div>
+					<img src="<?= base_url(); ?>/img/laka-1.png" alt="sing up image">
+					<div class="text-center mt-3">
+						<br>
+						<a href="<?= base_url(); ?>/choose-user" class="signup-image-link">
+							<i class="fa fa-arrow-left"></i> Kembali
+						</a>
+					</div>
+				</div>
 			</div>
 
 			<div class="signin-form mt-5 mt-lg-0">
-				<h4 class="form-title">
+				<h5 class="form-title">
 					Masuk sebagai Pelapor
-				</h4>
-				<form method="POST" class="register-form mt-3" id="login-form">
-					<div class="form-group">
-						<label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-						<input type="text" name="username" id="username" placeholder="Username" />
-					</div>
-					<div class="form-group">
-						<label for="password"><i class="zmdi zmdi-lock"></i></label>
-						<input type="password" name="password" id="password" placeholder="Password" />
-					</div>
-					<div class="form-group">
-						<input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-						<label for="remember-me" class="label-agree-term">
-							<span></span> Ingat Saya
-						</label>
-					</div>
-					<div class="form-group form-button">
-						<button type="submit" name="signin" id="signin" class="btn btn-success" style="width: 100%;">
-							<i class="zmdi zmdi-arrow-right"></i> Masuk
-						</button>
-					</div>
-				</form>
+				</h5>
 
-				<div class="mt-5 text-center">
-					<span class="social-label mb-3">
-						atau masuk dengan
-					</span>
-					<a href="#" class="btn btn-sm btn-outline-info" style="width: 100%; color: #000; font-weight: 500;">
-						<img src="<?= base_url(); ?>/img/google.png" style="width: 34px;"> Akun Google
+				<div class="text-left mt-5">
+					<p class="mb-3">
+						Silahkan masuk dengan
+					</p>
+					<a href="<?= $tombol_login; ?>" class="btn btn-block btn-outline-info shadow text-left">
+						<img src="<?= base_url(); ?>/img/google.png" style="width: 40px; margin-right: 10px;">
+						Akun Google
 					</a>
 				</div>
+
+				<div class="mt-5">
+					<div class="d-block text-center">
+						<span>
+							Belum punya akun ? silahkan
+						</span>
+						<a href="<?= base_url(); ?>/pelapor/sign-up" class="signup-image-link ml-2">
+							<i class="fa fa-arrow-circle-right"></i> Buat Akun
+						</a>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
 </section>
+
+<script>
+	$(document).ready(function() {
+		$(function() {
+			$("#formLogin").submit(function(e) {
+				e.preventDefault();
+
+				var username = $('#username').val();
+				var password = $('#password').val();
+
+				$.ajax({
+					type: "POST",
+					url: "<?= base_url() ?>/pelapor/auth-login-pelapor",
+					dataType: "JSON",
+					data: {
+						username: username,
+						password: password
+					},
+					success: function(data) {
+						if (data.success == "1") {
+							Swal.fire(
+								'Berhasil',
+								data.pesan,
+								'success'
+							).then(function() {
+								window.location = "<?= base_url() ?>/pelapor";
+							});
+						} else if (data.success == "0") {
+							Swal.fire(
+								'Gagal',
+								data.pesan,
+								'error'
+							)
+						}
+					}
+				});
+
+			});
+
+		});
+	});
+</script>
 
 <?= $this->endSection('content-landing'); ?>
